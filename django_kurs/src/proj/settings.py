@@ -25,7 +25,8 @@ SECRET_KEY = '20)3ts+q&oqx8zjsj!jyu*pbj5dmj-rmk@yd@+i!tw=rm2*3w!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vikbel.pythonanywhere.com']
+ALLOWED_HOSTS = ['vikbel.pythonanywhere.com',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wordbook'
 ]
 
 MIDDLEWARE = [
