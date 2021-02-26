@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ page_title }}
+{% endblock title %}
+
+{% block main_content %}
+
+    <h1> ID {{ object.pk}}</h1>
+    Серия: {{ object.name}}</br>
+    
+
+    <a href="{% url 'series-list' %}">Назад</a><br>
+{% endblock main_content %}

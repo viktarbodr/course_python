@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ page_title }}
+{% endblock title %}
+
+{% block main_content %}
+
+    <h1> ID {{ object.pk}}</h1>
+    Имя Автора: {{ object.name}}</br>
+    Описание: {{ object.description }}</br>
+
+    <a href="{% url 'authors-list' %}">Все </a><br>
+{% endblock main_content %}

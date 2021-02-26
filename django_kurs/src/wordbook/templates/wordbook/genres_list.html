@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Жанры:
+{% endblock title %}
+
+
+{% block main_content %}
+
+  <h1> List </h1>
+    <table class="table table-hover">
+        <tr> 
+            <td> ID </td> 
+            <td> Жанр </td> 
+            
+        </tr>
+         {% for author in object_list %}
+        <tr>
+            <td> {{ author.pk }}</td>
+            <td> {{ author.name }}</td> 
+            
+            <td>
+                <a href="{% url 'genres-detail' author.pk %}"> <i class="fas fa-info"></i> </a>
+                <a href="{% url 'genres-delete' author.pk %}"> <i class="fas fa-trash"></i> </a>
+                <a href="{% url 'genres-update' author.pk %}"> <i class="fas fa-edit"></i> </a>
+
+             </td>
+         </tr> 
+         {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'genres-create' %}"class ="btn btn-success"><i class="fas fa-plus"></i></a><br><br>
+   
+{% endblock main_content %}
+
+
+
