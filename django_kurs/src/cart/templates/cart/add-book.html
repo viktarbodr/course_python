@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}
+{% endblock title %}
+{% load static %}
+
+
+{% block main_content %}
+
+
+    <h3>{{request.session.current_cart_pk}}</h3>
+    {{ object }}
+    <br><hr>
+    <h3>Книги в корзине </h3>
+    <form action="{% url 'cart:update-cart' %}" method="GET">
+        
+        <table class = "table">
+        <thead>
+            <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Итог</th>
+            
+            </tr>
+        </thead>
+        
+        {% for book_in_cart in object.book.all %}
+        <tr>
+            <td>{{ book_in_cart.book.name }}</td>
+            <td>{{ book_in_cart.book.price }}</td>
+            <td><input type="number" min=0 name="book_in_cart_{{book_in_cart.pk}}" value="{{ book_in_cart.quantity }}"></td>
+            <td>{{ book_in_cart.books_total }}</td>
+            
+        </tr>
+        {% endfor %}
+        <tr>
+           
+            <td colspan="3"><b>Цена итог</b></td>
+            <td colspan="3"><b>{{ object.final_price }}</b></td>
+                
+            
+        </tr>       
+       
+    </table>
+
+
+
+    <table class = "table">
+        <thead>
+            <tr>
+            <th scope="col">Created</th>
+            <th scope="col">Update</th>
+            </tr>
+        </thead>
+        {% for book_in_cart in object.book.all %}
+        <tr>
+         
+            <td>{{ book_in_cart.created }}</td>
+            <td>{{ book_in_cart.update }}</td>
+        </tr>
+        {% endfor %}
+      
+    </table>
+
+
+
+
+
+    
+    <button type="submit" name="btn" class="btn btn-success" value="update-cart">Обновить</button>
+    <!-- <button type="submit" name="btn" class="btn btn-danger" value="checkout">Checkout</button> -->
+    <a href="/orders/orders-create/"class="btn btn-danger">Checkout</a><br>
+</form>
+
+
+
+
+    {% endblock main_content %}

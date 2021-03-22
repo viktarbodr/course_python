@@ -8,26 +8,33 @@ from django.views.generic import DetailView, ListView, CreateView, DeleteView, U
 
 wordbooks = ['Authors', 'Genres', 'Series','Publishers']
 
-def word_book(request):
-    return render(request, template_name='main_wordbook.html', context={'wordbook': wordbooks})
+#def word_book(request):
+#    return render(request, template_name='main_wordbook.html', context={'wordbook': wordbooks})
 
 
 
 class AuthorsList(ListView):
     model = models.Authors
+    template_name = 'wordbook/authors_list.html'
    # def get_context_data(self, **kwargs):
    #     context = super().get_context_data(**kwargs)
    #     context["page_title"] = "Author's !!!"
         # context["object_list"] -имя для контекста -object_list
     #    return context
+
 class GenresList(ListView):
     model = models.Genres
+    template_name = 'wordbook/genres_list.html'
     
+
 class SeriesList(ListView):
     model = models.Series
+    template_name = 'wordbook/series_list.html'
+
 
 class PublishersList(ListView):
     model = models.Publishers
+    template_name = 'wordbook/publishers_list.html'
 
 
 
@@ -77,6 +84,8 @@ class PublishersCreate(CreateView):
 class AuthorsDelete(DeleteView):
     model = models.Authors
     success_url = reverse_lazy('authors-list')
+    template_name = 'wordbook/authors_confirm_delete.html'
+
     # context["object"] - стандартное имя для контекста -object 
 #def author_create(request):
 #    context = {}
@@ -93,14 +102,18 @@ class AuthorsDelete(DeleteView):
 class GenresDelete(DeleteView):
     model = models.Genres
     success_url = reverse_lazy('genres-list')
+    template_name = 'wordbook/genres_confirm_delete.html'
 
 class SeriesDelete(DeleteView):
     model = models.Series
     success_url = reverse_lazy('series-list')
+    template_name = 'wordbook/series_confirm_delete.html'
+
 
 class PublishersDelete(DeleteView):
     model = models.Publishers
     success_url = reverse_lazy('publishers-list')
+    template_name = 'wordbook/publishers_confirm_delete.html'
 
 
 

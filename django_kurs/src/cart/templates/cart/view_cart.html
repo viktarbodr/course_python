@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Корзина 
+{% endblock title %}
+
+
+
+{% block main_content %}
+
+
+<h5>Все книги {{ object.books_total }}</h5>
+
+<br>
+<h1>{{request.session.current_cart_pk}}</h1>
+    {{ object }}<br><hr>
+    <h1>Книги в корзине </h1>
+  <form action="{% url 'cart:update-cart' %}">method="GET">
+    <table class="table table-sm table-striped table-hover">
+      <thead class="table-primary text-left align-middle">
+        <th></th>
+        <th>Наименование</th>
+        <th>Количество</th>
+        <th>Стоимость</th>
+        <th>Общая стоимость</th>
+        <th></th>
+      </thead>
+      <tbody>
+        {% for book in object.c_book.all %}
+          <tr class="align-middle">
+            <td>
+              <img src="/media/{{ book.c_book.foto }}" class="shadow bg-body rounded-3" style="width: 30px;" alt="...">
+            </td>
+            <td>
+              {{ book.book.name }} Название
+            </td>
+            <td>
+              <input class="text-center" size="5" type="number" min="0" name="{{ book.pk }}" value="{{ book.quantity }}">
+            </td>
+            <td class="text-center">
+              {{ book.price }} BYN
+            </td>
+            <td class="text-center">
+              {{ book.final_price}} BYN
+            </td>
+            <td class="text-center">
+              <a title="Удалить из корзины" href="{% url 'cart:delete-from-cart' book.pk %}">
+                <i class="bi bi-trash text-danger"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="align-middle">
+          <td colspan="2"><b>ИТОГО</b></td>
+          <td class="text-center"><b>{{ object.books_total }}</td>
+          <td></td>
+          <td class="text-center"><b>{{ object.final_price }} BYN</b></td>
+          <td></td>
+          </tr>
+      </tfoot>
+    </table>
+    <br>
+    <button type="submit" name="btn" value="recalculate" class="btn btn-primary">Пересчитать</button>
+    <button type="submit" name="btn" value="checkout" class="btn btn-success">Оформить заказ</button>
+  </form>
+<!--{% else %}
+  <h1 class="text-danger"><b><i>Корзина пуста!</i></b></h1>
+{% endif %} -->
+
+
+{% endblock main_content %}

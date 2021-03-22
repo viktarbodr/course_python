@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Home page 
+{% endblock title %}
+
+
+{% block main_content %}
+
+<br>
+<br>
+
+{% if page_obj.paginator.num_pages > 1 %}
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+      </li>
+      {% endif %}
+      <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+      {% endif %}
+    </ul>
+  </nav>
+{% else %}
+      <br>
+{% endif %}
+
+ <h3>Все книги </h3>
+  
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+
+        {% for object in objects %}
+
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem;">
+
+              <img src="{% if not object.foto %}{% static 'homebook/img/no_book.png'%}{% else %}media/{{ object.foto }}{% endif %}" class="img-fluid">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.name }}</h5>
+                <p class="card-text">Цена: {{object.price}}</p>
+                <p class="card-text">Наличие:  {{object.quantity}}</p>
+                <p class="card-text">Автор:{{object.get_authors}}+</p>
+                <p class="card-text">Жанр: {{ object.genres.all}} </p>
+                <p class="card-text">Серия: {{object.series}}</p>
+                <p class="card-text">Издательство: {{object.publisher}}</p>
+                <p class="card-text">Год издания: {{object.year}}</p>
+                <p class="card-text">Количество страниц: {{object.pages}}</p>
+                <p class="card-text"Формат:{{oobject.forma}}</p>
+                <p class="card-text"ISBN:{{object.isbn}}</p>
+                <p class="card-text"Вес (гр.):{{object.weight}}</p>
+                <p class="card-text"Рэйтинг:{{object.rating_stat}}</p>
+                
+
+                <a href="{% url 'cart:add-to-cart' %}?book={{ object.pk }}" class="btn btn-primary">Добавить в cart</a>
+                <a href="{% url 'cart:add-to-cart' %}?book={{ object.pk}}" class="btn btn-primary">Купить</a>
+
+                
+            </div>
+          </div>
+        </div>
+       
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock main_content %}

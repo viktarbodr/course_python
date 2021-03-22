@@ -7,11 +7,11 @@
 
 {% block main_content %}
 
-  <h1> List </h1>
+  <h1> Публикации: </h1>
     <table class="table table-hover">
         <tr> 
             <td> ID </td> 
-            <td> Публикации </td> 
+            <td> Публикация </td> 
             
         </tr>
          {% for author in object_list %}
@@ -20,16 +20,16 @@
             <td> {{ author.name }}</td> 
             
             <td>
-                <a href="{% url 'publishers-detail' author.pk %}"> <i class="fas fa-info"></i> </a>
-                <a href="{% url 'publishers-delete' author.pk %}"> <i class="fas fa-trash"></i> </a>
-                <a href="{% url 'publishers-update' author.pk %}"> <i class="fas fa-edit"></i> </a>
+                <a href="{% url 'wordbook:publishers-detail' author.pk %}"> <i class="fas fa-info"></i> </a>
+                <a href="{% url 'wordbook:publishers-delete' author.pk %}"> <i class="fas fa-trash"></i> </a>
+                <a href="{% url 'wordbook:publishers-update' author.pk %}"> <i class="fas fa-edit"></i> </a>
 
              </td>
          </tr> 
          {% endfor %}
     </table>
     <br>
-    <a href="{% url 'publishers-create' %}"class ="btn btn-success"><i class="fas fa-plus"></i></a><br><br>
+    <a href="{% url 'wordbook:publishers-create' %}"class ="btn btn-success"><i class="fas fa-plus"></i></a><br><br>
    
 {% endblock main_content %}
 

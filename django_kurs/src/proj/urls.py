@@ -14,35 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from wordbook import views as book_views
-from wordbook import models
+from django.conf import settings
+from django.urls import path, include, reverse_lazy
+from django.conf.urls.static import static
+
+from wordbook import urls as wordbook_urls
+from homebook import views as homebook_views
+from accounts import urls as accounts_urls
+from cart import urls as cart_urls
+from orders import urls as orders_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', book_views.word_book, name='wordbook'),
-
-    path('authors-list/', book_views.AuthorsList.as_view(), name='authors-list'),
-    path('authors-create/', book_views.AuthorsCreate.as_view(), name='authors-create'),
-    path('authors-detail/<int:pk>/', book_views.AuthorsDetail.as_view(), name='authors-detail'),
-    path('authors-delete/<int:pk>/', book_views.AuthorsDelete.as_view(), name='authors-delete'),
-    path('authors-update/<int:pk>/', book_views.AuthorsUpdate.as_view(),name='authors-update'),
-
-    path('genres-list/', book_views.GenresList.as_view(), name='genres-list'),
-    path('genres-create/', book_views.GenresCreate.as_view(), name='genres-create'),
-    path('genres-detail/<int:pk>/', book_views.GenresDetail.as_view(), name='genres-detail'),
-    path('genres-delete/<int:pk>/', book_views.GenresDelete.as_view(), name='genres-delete'),
-    path('genres-update/<int:pk>/', book_views.GenresUpdate.as_view(),name='genres-update'),
-
-    path('series-list/', book_views.SeriesList.as_view(), name='series-list'),
-    path('series-create/', book_views.SeriesCreate.as_view(), name='series-create'),
-    path('series-detail/<int:pk>/', book_views.SeriesDetail.as_view(), name='series-detail'),
-    path('series-delete/<int:pk>/', book_views.SeriesDelete.as_view(), name='series-delete'),
-    path('series-update/<int:pk>/', book_views.SeriesUpdate.as_view(),name='series-update'),
-
-    path('publishers-list/', book_views.PublishersList.as_view(), name='publishers-list'),
-    path('publishers-create/', book_views.PublishersCreate.as_view(), name='publishers-create'),
-    path('publishers-detail/<int:pk>/', book_views.PublishersDetail.as_view(), name='publishers-detail'),
-    path('publishers-delete/<int:pk>/', book_views.PublishersDelete.as_view(), name='publishers-delete'),
-    path('publishers-update/<int:pk>/', book_views.PublishersUpdate.as_view(),name='publishers-update')
+    path('', homebook_views.HomePage.as_view(), name='homepage'), # 127.0.0.1
+    path('books-list', homebook_views.BooksList.as_view(), name='books-list'),
+    path('wordbook/', include(wordbook_urls, namespace='wordbook')),
+    path('accounts/', include(accounts_urls, namespace='accounts')),
+    path('cart/', include(cart_urls, namespace='cart')),
+    path('orders/', include(orders_urls, namespace="orders")),
 ] 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,7 +7,7 @@
 
 {% block main_content %}
 
-  <h1> List </h1>
+  <h1> Жанры: </h1>
     <table class="table table-hover">
         <tr> 
             <td> ID </td> 
@@ -20,16 +20,16 @@
             <td> {{ author.name }}</td> 
             
             <td>
-                <a href="{% url 'genres-detail' author.pk %}"> <i class="fas fa-info"></i> </a>
-                <a href="{% url 'genres-delete' author.pk %}"> <i class="fas fa-trash"></i> </a>
-                <a href="{% url 'genres-update' author.pk %}"> <i class="fas fa-edit"></i> </a>
+                <a href="{% url 'wordbook:genres-detail' author.pk %}"> <i class="fas fa-info"></i> </a>
+                <a href="{% url 'wordbook:genres-delete' author.pk %}"> <i class="fas fa-trash"></i> </a>
+                <a href="{% url 'wordbook:genres-update' author.pk %}"> <i class="fas fa-edit"></i> </a>
 
              </td>
          </tr> 
          {% endfor %}
     </table>
     <br>
-    <a href="{% url 'genres-create' %}"class ="btn btn-success"><i class="fas fa-plus"></i></a><br><br>
+    <a href="{% url 'wordbook:genres-create' %}"class ="btn btn-success"><i class="fas fa-plus"></i></a><br><br>
    
 {% endblock main_content %}
 

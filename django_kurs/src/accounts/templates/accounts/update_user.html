@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Редактирование 
+{% endblock title %}
+
+
+{% block main_content %}
+
+{{ user.username }}:
+<form method="POST" action="">
+
+    {% csrf_token %}
+    {{ form|crispy }}
+    {{ form_ext|crispy }}
+
+    <br>
+
+    <button type="submit" class="btn btn-success" style="width: 200px;">Сохранить</button>
+    <button onclick="history.back()" class="btn btn-secondary" style="width: 200px;">Назад</button>
+
+</form>
+
+{% endblock main_content %}
